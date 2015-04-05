@@ -410,7 +410,7 @@ cond_stmt:
 
 
 exp :	
-	 | '!' exp
+	 '!' exp
 	 {
 	 		$$ = CreateUnOperNode("!", "boolean", "not");
 	 }
