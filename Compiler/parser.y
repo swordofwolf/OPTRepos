@@ -78,7 +78,8 @@ global :
 function :
 	FUNC VARIABLE VARIABLE marker_openblock '(' paramlist ')' '{' stmtlist '}'marker_closeblock
 	{
-		codegen($9);
+		if (!isError)
+			codegen($9);
 		freeTree($9);
 	}
 	; 
