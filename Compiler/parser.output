@@ -85,32 +85,31 @@
    49 cond_stmt: IF '(' exp ')' statement
    50          | IF '(' exp ')' statement ELSE statement
 
-   51 exp: %empty
-   52    | '!' exp
-   53    | exp BOOLOP exp
-   54    | exp CMP exp
-   55    | exp '+' exp
-   56    | exp '-' exp
-   57    | exp '*' exp
-   58    | exp '/' exp
-   59    | '(' exp ')'
-   60    | INTCONST
-   61    | FLOATCONST
-   62    | STRCONST
-   63    | refference
+   51 exp: '!' exp
+   52    | exp BOOLOP exp
+   53    | exp CMP exp
+   54    | exp '+' exp
+   55    | exp '-' exp
+   56    | exp '*' exp
+   57    | exp '/' exp
+   58    | '(' exp ')'
+   59    | INTCONST
+   60    | FLOATCONST
+   61    | STRCONST
+   62    | refference
 
 
 Терминальные символы с правилами, в которых они появляются
 
 $end (0) 0
-'!' (33) 52
-'(' (40) 8 44 45 46 49 50 59
-')' (41) 8 44 45 46 49 50 59
-'*' (42) 57
-'+' (43) 55
-'-' (45) 56
+'!' (33) 51
+'(' (40) 8 44 45 46 49 50 58
+')' (41) 8 44 45 46 49 50 58
+'*' (42) 56
+'+' (43) 54
+'-' (45) 55
 '.' (46) 39
-'/' (47) 58
+'/' (47) 57
 ':' (58) 31
 ';' (59) 15 19 20 21 27 28 32 44
 '=' (61) 35
@@ -119,10 +118,10 @@ $end (0) 0
 '{' (123) 8 11 41
 '}' (125) 8 11 41
 error (256) 29 30
-INTCONST (258) 60
+INTCONST (258) 59
 VARIABLE (259) 8 11 15 31 32 33 34 38 39 40
-STRCONST (260) 62
-FLOATCONST (261) 61
+STRCONST (260) 61
+FLOATCONST (261) 60
 IF (262) 49 50
 ELSE (263) 50
 DO (264) 46
@@ -135,8 +134,8 @@ GOTO (270) 32
 FUNC (271) 8
 UNION (272)
 IFX (273)
-CMP (274) 54
-BOOLOP (275) 53
+CMP (274) 53
+BOOLOP (275) 52
 REVERSE (276)
 
 
@@ -176,7 +175,7 @@ declaration (51)
 assign (52)
     налево: 35, направо: 20 30
 refference (53)
-    налево: 36 37 38, направо: 35 63
+    налево: 36 37 38, направо: 35 62
 structrefference (54)
     налево: 39, направо: 36
 arrayrefference (55)
@@ -200,8 +199,8 @@ marker_closeblock (63)
 cond_stmt (64)
     налево: 49 50, направо: 22
 exp (65)
-    налево: 51 52 53 54 55 56 57 58 59 60 61 62 63, направо:
-    19 29 34 35 40 44 45 46 49 50 52 53 54 55 56 57 58 59
+    налево: 51 52 53 54 55 56 57 58 59 60 61 62, направо:
+    19 29 34 35 40 44 45 46 49 50 51 52 53 54 55 56 57 58
 
 
 State 0
@@ -353,8 +352,6 @@ State 16
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
 
-    $default  вывод с использованием правила 51 (exp)
-
     refference        переход в состояние 25
     structrefference  переход в состояние 26
     arrayrefference   переход в состояние 27
@@ -379,9 +376,9 @@ State 18
 
 State 19
 
-   60 exp: INTCONST .
+   59 exp: INTCONST .
 
-    $default  вывод с использованием правила 60 (exp)
+    $default  вывод с использованием правила 59 (exp)
 
 
 State 20
@@ -398,21 +395,21 @@ State 20
 
 State 21
 
-   62 exp: STRCONST .
-
-    $default  вывод с использованием правила 62 (exp)
-
-
-State 22
-
-   61 exp: FLOATCONST .
+   61 exp: STRCONST .
 
     $default  вывод с использованием правила 61 (exp)
 
 
+State 22
+
+   60 exp: FLOATCONST .
+
+    $default  вывод с использованием правила 60 (exp)
+
+
 State 23
 
-   52 exp: '!' . exp
+   51 exp: '!' . exp
 
     INTCONST    сдвиг, и переход в состояние 19
     VARIABLE    сдвиг, и переход в состояние 20
@@ -420,8 +417,6 @@ State 23
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -431,7 +426,7 @@ State 23
 
 State 24
 
-   59 exp: '(' . exp ')'
+   58 exp: '(' . exp ')'
 
     INTCONST    сдвиг, и переход в состояние 19
     VARIABLE    сдвиг, и переход в состояние 20
@@ -439,8 +434,6 @@ State 24
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -450,9 +443,9 @@ State 24
 
 State 25
 
-   63 exp: refference .
+   62 exp: refference .
 
-    $default  вывод с использованием правила 63 (exp)
+    $default  вывод с использованием правила 62 (exp)
 
 
 State 26
@@ -472,12 +465,12 @@ State 27
 State 28
 
    34 declaration: VARIABLE VARIABLE '[' exp . ']'
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     CMP     сдвиг, и переход в состояние 35
     '+'     сдвиг, и переход в состояние 36
@@ -516,8 +509,6 @@ State 31
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
 
-    $default  вывод с использованием правила 51 (exp)
-
     refference        переход в состояние 25
     structrefference  переход в состояние 26
     arrayrefference   переход в состояние 27
@@ -533,26 +524,26 @@ State 32
 
 State 33
 
-   52 exp: '!' exp .
-   53    | exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   51 exp: '!' exp .
+   52    | exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
-    $default  вывод с использованием правила 52 (exp)
+    $default  вывод с использованием правила 51 (exp)
 
 
 State 34
 
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
-   59    | '(' exp . ')'
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
+   58    | '(' exp . ')'
 
     CMP     сдвиг, и переход в состояние 35
     '+'     сдвиг, и переход в состояние 36
@@ -565,7 +556,7 @@ State 34
 
 State 35
 
-   54 exp: exp CMP . exp
+   53 exp: exp CMP . exp
 
     INTCONST    сдвиг, и переход в состояние 19
     VARIABLE    сдвиг, и переход в состояние 20
@@ -573,8 +564,6 @@ State 35
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -584,7 +573,7 @@ State 35
 
 State 36
 
-   55 exp: exp '+' . exp
+   54 exp: exp '+' . exp
 
     INTCONST    сдвиг, и переход в состояние 19
     VARIABLE    сдвиг, и переход в состояние 20
@@ -592,8 +581,6 @@ State 36
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -603,7 +590,7 @@ State 36
 
 State 37
 
-   56 exp: exp '-' . exp
+   55 exp: exp '-' . exp
 
     INTCONST    сдвиг, и переход в состояние 19
     VARIABLE    сдвиг, и переход в состояние 20
@@ -611,8 +598,6 @@ State 37
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -622,7 +607,7 @@ State 37
 
 State 38
 
-   57 exp: exp '*' . exp
+   56 exp: exp '*' . exp
 
     INTCONST    сдвиг, и переход в состояние 19
     VARIABLE    сдвиг, и переход в состояние 20
@@ -630,8 +615,6 @@ State 38
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -641,7 +624,7 @@ State 38
 
 State 39
 
-   58 exp: exp '/' . exp
+   57 exp: exp '/' . exp
 
     INTCONST    сдвиг, и переход в состояние 19
     VARIABLE    сдвиг, и переход в состояние 20
@@ -649,8 +632,6 @@ State 39
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -660,7 +641,7 @@ State 39
 
 State 40
 
-   53 exp: exp BOOLOP . exp
+   52 exp: exp BOOLOP . exp
 
     INTCONST    сдвиг, и переход в состояние 19
     VARIABLE    сдвиг, и переход в состояние 20
@@ -668,8 +649,6 @@ State 40
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -726,12 +705,12 @@ State 45
 State 46
 
    40 arrayrefference: VARIABLE '[' exp . ']'
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     CMP     сдвиг, и переход в состояние 35
     '+'     сдвиг, и переход в состояние 36
@@ -751,20 +730,20 @@ State 47
 
 State 48
 
-   59 exp: '(' exp ')' .
+   58 exp: '(' exp ')' .
 
-    $default  вывод с использованием правила 59 (exp)
+    $default  вывод с использованием правила 58 (exp)
 
 
 State 49
 
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   54    | exp CMP exp .
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   53    | exp CMP exp .
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     '+'     сдвиг, и переход в состояние 36
     '-'     сдвиг, и переход в состояние 37
@@ -774,18 +753,35 @@ State 49
 
     CMP  ошибка (неассоциативная)
 
-    $default  вывод с использованием правила 54 (exp)
+    $default  вывод с использованием правила 53 (exp)
 
 
 State 50
 
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   55    | exp '+' exp .
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   54    | exp '+' exp .
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
+
+    '*'     сдвиг, и переход в состояние 38
+    '/'     сдвиг, и переход в состояние 39
+    BOOLOP  сдвиг, и переход в состояние 40
+
+    $default  вывод с использованием правила 54 (exp)
+
+
+State 51
+
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   55    | exp '-' exp .
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     '*'     сдвиг, и переход в состояние 38
     '/'     сдвиг, и переход в состояние 39
@@ -794,64 +790,47 @@ State 50
     $default  вывод с использованием правила 55 (exp)
 
 
-State 51
+State 52
 
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   56    | exp '-' exp .
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   56    | exp '*' exp .
+   57    | exp . '/' exp
 
-    '*'     сдвиг, и переход в состояние 38
-    '/'     сдвиг, и переход в состояние 39
     BOOLOP  сдвиг, и переход в состояние 40
 
     $default  вывод с использованием правила 56 (exp)
 
 
-State 52
+State 53
 
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   57    | exp '*' exp .
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
+   57    | exp '/' exp .
 
     BOOLOP  сдвиг, и переход в состояние 40
 
     $default  вывод с использованием правила 57 (exp)
 
 
-State 53
-
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
-   58    | exp '/' exp .
-
-    BOOLOP  сдвиг, и переход в состояние 40
-
-    $default  вывод с использованием правила 58 (exp)
-
-
 State 54
 
-   53 exp: exp . BOOLOP exp
-   53    | exp BOOLOP exp .
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   52    | exp BOOLOP exp .
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
-    $default  вывод с использованием правила 53 (exp)
+    $default  вывод с использованием правила 52 (exp)
 
 
 State 55
@@ -956,8 +935,6 @@ State 66
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
-
-    $default  вывод с использованием правила 51 (exp)
 
     stmtlist          переход в состояние 76
     statement         переход в состояние 77
@@ -1078,8 +1055,7 @@ State 77
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
 
-    '}'       вывод с использованием правила 17 (stmtlist_tail)
-    $default  вывод с использованием правила 51 (exp)
+    $default  вывод с использованием правила 17 (stmtlist_tail)
 
     stmtlist          переход в состояние 97
     stmtlist_tail     переход в состояние 98
@@ -1116,11 +1092,11 @@ State 79
 State 80
 
    35 assign: refference . '=' exp
-   63 exp: refference .
+   62 exp: refference .
 
     '='  сдвиг, и переход в состояние 102
 
-    $default  вывод с использованием правила 63 (exp)
+    $default  вывод с использованием правила 62 (exp)
 
 
 State 81
@@ -1162,12 +1138,12 @@ State 86
 
    19 statement: exp . ';'
    29          | exp . error
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     error   сдвиг, и переход в состояние 103
     CMP     сдвиг, и переход в состояние 35
@@ -1198,8 +1174,6 @@ State 88
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
 
-    $default  вывод с использованием правила 51 (exp)
-
     refference        переход в состояние 25
     structrefference  переход в состояние 26
     arrayrefference   переход в состояние 27
@@ -1224,8 +1198,6 @@ State 89
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
-
-    $default  вывод с использованием правила 51 (exp)
 
     statement         переход в состояние 106
     declaration       переход в состояние 78
@@ -1252,8 +1224,6 @@ State 90
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
 
-    $default  вывод с использованием правила 51 (exp)
-
     refference        переход в состояние 25
     structrefference  переход в состояние 26
     arrayrefference   переход в состояние 27
@@ -1278,8 +1248,6 @@ State 91
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
-
-    $default  вывод с использованием правила 51 (exp)
 
     statement         переход в состояние 108
     declaration       переход в состояние 78
@@ -1334,8 +1302,6 @@ State 95
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
-
-    $default  вывод с использованием правила 51 (exp)
 
     stmtlist          переход в состояние 110
     statement         переход в состояние 77
@@ -1407,8 +1373,6 @@ State 102
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
 
-    $default  вывод с использованием правила 51 (exp)
-
     refference        переход в состояние 25
     structrefference  переход в состояние 26
     arrayrefference   переход в состояние 27
@@ -1433,12 +1397,12 @@ State 105
 
    49 cond_stmt: IF '(' exp . ')' statement
    50          | IF '(' exp . ')' statement ELSE statement
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     CMP     сдвиг, и переход в состояние 35
     '+'     сдвиг, и переход в состояние 36
@@ -1461,12 +1425,12 @@ State 106
 State 107
 
    45 while_stmt: WHILE '(' exp . ')' incycle statement outcycle
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     CMP     сдвиг, и переход в состояние 35
     '+'     сдвиг, и переход в состояние 36
@@ -1487,8 +1451,6 @@ State 108
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -1522,12 +1484,12 @@ State 111
 State 112
 
    35 assign: refference '=' exp .
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     CMP     сдвиг, и переход в состояние 35
     '+'     сдвиг, и переход в состояние 36
@@ -1558,8 +1520,6 @@ State 113
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
-
-    $default  вывод с использованием правила 51 (exp)
 
     statement         переход в состояние 118
     declaration       переход в состояние 78
@@ -1594,12 +1554,12 @@ State 115
 State 116
 
    44 for_stmt: FOR '(' statement exp . ';' statement ')' incycle statement outcycle
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     CMP     сдвиг, и переход в состояние 35
     '+'     сдвиг, и переход в состояние 36
@@ -1653,8 +1613,6 @@ State 120
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
 
-    $default  вывод с использованием правила 51 (exp)
-
     statement         переход в состояние 125
     declaration       переход в состояние 78
     assign            переход в состояние 79
@@ -1687,8 +1645,6 @@ State 121
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
-
-    $default  вывод с использованием правила 51 (exp)
 
     statement         переход в состояние 126
     declaration       переход в состояние 78
@@ -1730,8 +1686,6 @@ State 123
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
 
-    $default  вывод с использованием правила 51 (exp)
-
     statement         переход в состояние 127
     declaration       переход в состояние 78
     assign            переход в состояние 79
@@ -1756,8 +1710,6 @@ State 124
     FLOATCONST  сдвиг, и переход в состояние 22
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
-
-    $default  вывод с использованием правила 51 (exp)
 
     refference        переход в состояние 25
     structrefference  переход в состояние 26
@@ -1791,12 +1743,12 @@ State 127
 State 128
 
    46 do_stmt: DO incycle statement outcycle WHILE '(' exp . ')' outcycle
-   53 exp: exp . BOOLOP exp
-   54    | exp . CMP exp
-   55    | exp . '+' exp
-   56    | exp . '-' exp
-   57    | exp . '*' exp
-   58    | exp . '/' exp
+   52 exp: exp . BOOLOP exp
+   53    | exp . CMP exp
+   54    | exp . '+' exp
+   55    | exp . '-' exp
+   56    | exp . '*' exp
+   57    | exp . '/' exp
 
     CMP     сдвиг, и переход в состояние 35
     '+'     сдвиг, и переход в состояние 36
@@ -1850,8 +1802,6 @@ State 132
     '!'         сдвиг, и переход в состояние 23
     '('         сдвиг, и переход в состояние 24
     '{'         сдвиг, и переход в состояние 75
-
-    $default  вывод с использованием правила 51 (exp)
 
     statement         переход в состояние 134
     declaration       переход в состояние 78

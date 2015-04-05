@@ -140,14 +140,3 @@ func int main()
 L0:
 	goto	L0
 33. goto в пределах структуры - пустой файл
-34. func float qwerty()
-{
-	
- int a;	
-qwe:
-
-}
-goto qwe;
-
-на выходе:
-L0:

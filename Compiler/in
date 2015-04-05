@@ -1,0 +1,24 @@
+
+struct type
+{
+
+	int a;
+	string b;
+
+}
+
+func int main()
+{
+	int a;
+	
+	
+
+	type asd;
+	
+	float b,v;
+	b = -2.3+2.4;
+	v=5.2;
+	
+}
+
+
