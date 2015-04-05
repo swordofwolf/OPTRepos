@@ -253,8 +253,14 @@ declaration :
 	}
 ;
 
-assign : 
-	refference '=' exp
+assign :
+	exp '=' exp
+	{
+		my_yyerror("lvalue required as left operand of assignment");
+		$$ = NULL;
+		return;
+	} 
+	| refference '=' exp
 	{	
 		if (0 != strcmp($1->expType, $3->expType))
 		{
