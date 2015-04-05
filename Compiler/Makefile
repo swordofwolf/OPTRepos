@@ -31,7 +31,9 @@ lex.yy.c: lexer.l
 clean-all:
 	make clean
 	-rm -f crabCompiler
-
+	-rm in
+	-rm output
+	-rm *~ 
 clean:
 	-rm -f *.o
 	-rm -f parser.output
