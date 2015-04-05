@@ -88,6 +88,7 @@ int freeTree(nodeType* src)
 	case typeStructRefference:
 	case typeIntConst:
 	case typeLabel:
+	case typeGoto:
 	case typeFloatConst:
 	case typeStringConst:
 	case typeIdentifier:
@@ -646,7 +647,7 @@ int codegenArrayRef(nodeType* var, nodeType* count, const char* tmpVar)
 
 int main (int argc, char* argv[])
 {
-  //yydebug = 1;
+  yydebug = 1;
   int yyparse();
   if (argc < 2)
   {
