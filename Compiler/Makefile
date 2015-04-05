@@ -30,7 +30,7 @@ lex.yy.c: lexer.l
 
 clean-all:
 	make clean
-	-rm -f expression
+	-rm -f crabCompiler
 
 clean:
 	-rm -f *.o
